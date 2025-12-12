@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Style Quartet - E-commerce</title>
+
+<!-- Tailwind CSS CDN -->
+<script src="https://cdn.tailwindcss.com"></script>
+
+<style>
+    .modal-backdrop {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0,0,0,0.5);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 1000;
+    }
+
+    .modal-content {
+        background-color: white;
+        padding: 2rem;
+        border-radius: 1rem;
+        width: 90%;
+        max-width: 400px;
+        position: relative;
+        box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+    }
+
+    .modal-close {
+        position: absolute;
+        top: 0.5rem;
+        right: 0.5rem;
+        font-size: 1.5rem;
+        font-weight: bold;
+        cursor: pointer;
+    }
+
+    .hidden { display: none; }
+
+    .product-grid::-webkit-scrollbar {
+        width: 8px;
+    }
+    .product-grid::-webkit-scrollbar-thumb {
+        background-color: rgba(0,0,0,0.2);
+        border-radius: 4px;
+    }
+
+    #user-email { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+
+    /* Hide main content initially */
+    #container > main,
+    #container > footer {
+        display: none;
+    }
+</style>
+</head>
+<body class="bg-gray-50">
+<div id="container" class="min-h-screen flex flex-col">
+
+<header id="header" class="bg-white shadow-lg sticky top-0 z-50">
+    <div id="top-bar" class="flex justify-between items-center p-4 max-w-7xl mx-auto">
+        <h1 class="text-3xl font-bold text-pink-600">Style Quartet</h1>
+        <div id="top-buttons" class="flex items-center space-x-2 sm:space-x-4">
+            <div id="auth-controls" class="flex items-center space-x-2 sm:space-x-4">
+                <div id="user-display" class="hidden flex items-center space-x-2">
+                    <span id="user-email" class="text-sm font-medium text-gray-700 truncate max-w-[100px] sm:max-w-none">user@example.com</span>
+                    <button id="sign-out-btn" class="px-3 py-1 bg-red-500 hover:bg-red-600 text-white text-sm font-semibold rounded-lg transition">Sign Out</button>
+                </div>
+                <div id="anon-controls" class="flex items-center space-x-2 sm:space-x-4">
+                    <button id="login-modal-open-btn" class="px-3 py-1 bg-pink-500 hover:bg-pink-600 text-white text-sm font-semibold rounded-lg transition shadow-md">Log In</button>
+                    <button id="signup-modal-open-btn" class="px-3 py-1 border border-pink-500 text-pink-500 hover:bg-pink-50 transition text-sm font-semibold rounded-lg shadow-sm">Sign Up</button>
+                </div>
+            </div>
+            <button id="cart-btn" title="Cart" class="p-2 bg-gray-100 hover:bg-gray-200 rounded-full transition">🛒</button>
+            <button id="messages-btn" title="Messages" class="p-2 bg-gray-100 hover:bg-gray-200 rounded-full transition">💬</button>
+            <button id="feedback-btn" title="Feedback" class="p-2 bg-gray-100 hover:bg-gray-200 rounded-full transition">📝</button>
+        </div>
+    </div>
+
+    <div class="border-t border-gray-100">
+        <div class="max-w-7xl mx-auto flex flex-col sm:flex-row justify-between items-center p-4 space-y-3 sm:space-y-0">
+            <div id="search-bar" class="flex w-full sm:w-1/3">
+                <input type="text" placeholder="Search products..." class="flex-grow p-2 border border-gray-300 rounded-l-lg focus:ring-pink-500 focus:border-pink-500">
+                <button type="submit" class="px-4 py-2 bg-gray-800 text-white rounded-r-lg hover:bg-gray-700 transition">Search</button>
+            </div>
+            <ul id="nav" class="flex justify-center sm:justify-end space-x-4 text-gray-600 font-medium w-full sm:w-auto">
+                <li><a href="#" class="hover:text-pink-600 transition">Home</a></li>
+                <li><a href="#" class="hover:text-pink-600 transition">Categories</a></li>
+                <li><a href="#" class="hover:text-pink-600 transition">Deals</a></li>
+                <li><a href="#" class="hover:text-pink-600 transition">About Us</a></li>
+            </ul>
+        </div>
+    </div>
+</header>
+
+<main id="main" class="flex-grow p-6 max-w-7xl mx-auto w-full">
+<h2 class="text-3xl font-extrabold mb-8 text-gray-800 border-b-2 border-pink-500 pb-2">Featured Products</h2>
+<div class="product-grid grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6">
+
+<!-- Product 1 -->
+<div class="product-card bg-white rounded-xl shadow-lg overflow-hidden relative" data-name="Liquid Foundation" data-price="549" data-category="Cosmetics" data-img="https://i.pinimg.com/736x/f2/d2/f9/f2d2f9a7900cef9b82cf5c25b68d4756.jpg">
+<div class="best-seller absolute top-2 left-2 bg-pink-500 text-white text-xs font-bold px-3 py-1 rounded-full z-10">BEST SELLER</div>
+<img src="https://i.pinimg.com/736x/f2/d2/f9/f2d2f9a7900cef9b82cf5c25b68d4756.jpg" alt="Foundation" class="w-full h-40 object-cover" />
+<div class="p-4">
+<h3 class="text-lg font-semibold text-gray-800 mb-1">Liquid Foundation</h3>
+<p class="price text-xl font-bold text-pink-600 mb-2">₱549</p>
+<p class="rating text-sm text-gray-500 mb-4">★★★★★ (4.9)</p>
+<button class="add-to-cart w-full py-2 bg-pink-500 text-white font-bold rounded-lg hover:bg-pink-600 transition">Add to Cart</button>
+</div>
+</div>
+
+<!-- Product 2 -->
+<div class="product-card bg-white rounded-xl shadow-lg overflow-hidden relative" data-name="Running Sneakers" data-price="1099" data-category="Shoes" data-img="https://i.pinimg.com/736x/3a/c5/be/3ac5be98ece2a6eea589cd4e92ea8ba7.jpg">
+<div class="best-seller absolute top-2 left-2 bg-pink-500 text-white text-xs font-bold px-3 py-1 rounded-full z-10">BEST SELLER</div>
+<img src="https://i.pinimg.com/736x/3a/c5/be/3ac5be98ece2a6eea589cd4e92ea8ba7.jpg" alt="Sneakers" class="w-full h-40 object-cover" />
+<div class="p-4">
+<h3 class="text-lg font-semibold text-gray-800 mb-1">Running Sneakers</h3>
+<p class="price text-xl font-bold text-pink-600 mb-2">₱1,099</p>
+<p class="rating text-sm text-gray-500 mb-4">★★★★☆ (4.4)</p>
+<button class="add-to-cart w-full py-2 bg-pink-500 text-white font-bold rounded-lg hover:bg-pink-600 transition">Add to Cart</button>
+</div>
+</div>
+
+</div>
+</main>
+
+<footer id="footer" class="bg-gray-800 text-white mt-8 p-6">
+    <div class="max-w-7xl mx-auto text-center">
+        <p class="text-sm">© 2025 Style Quartet | All rights reserved.</p>
+    </div>
+</footer>
+</div>
+
+<!-- LOGIN MODAL -->
+<div id="login-modal" class="modal-backdrop hidden">
+<div class="modal-content">
+<span class="modal-close" id="login-modal-close-btn">&times;</span>
+<h2 class="text-2xl font-bold mb-6 text-center text-gray-800">Welcome Back!</h2>
+<form id="login-form" class="space-y-4">
+<div>
+<label for="login-email" class="block text-sm font-medium text-gray-700">Email</label>
+<input type="email" id="login-email" required class="mt-1 block w-full p-3 border border-gray-300 rounded-lg shadow-sm focus:ring-pink-500 focus:border-pink-500">
+</div>
+<div>
+<label for="login-password" class="block text-sm font-medium text-gray-700">Password</label>
+<input type="password" id="login-password" required class="mt-1 block w-full p-3 border border-gray-300 rounded-lg shadow-sm focus:ring-pink-500 focus:border-pink-500">
+</div>
+<div id="login-error" class="text-red-500 text-sm font-medium hidden"></div>
+<button type="submit" class="w-full py-3 bg-pink-600 text-white font-bold rounded-lg hover:bg-pink-700 transition shadow-lg">Log In</button>
+<p class="text-center text-sm mt-4 text-gray-600">
+Don't have an account? <a href="#" id="switch-to-signup" class="text-pink-600 font-medium hover:underline">Sign Up</a>
+</p>
+</form>
+</div>
+</div>
+
+<!-- SIGNUP MODAL -->
+<div id="signup-modal" class="modal-backdrop hidden">
+<div class="modal-content">
+<span class="modal-close" id="signup-modal-close-btn">&times;</span>
+<h2 class="text-2xl font-bold mb-6 text-center text-gray-800">Create Account</h2>
+<form id="signup-form" class="space-y-4">
+<div>
+<label for="signup-email" class="block text-sm font-medium text-gray-700">Email</label>
+<input type="email" id="signup-email" required class="mt-1 block w-full p-3 border border-gray-300 rounded-lg shadow-sm focus:ring-pink-500 focus:border-pink-500">
+</div>
+<div>
+<label for="signup-password" class="block text-sm font-medium text-gray-700">Password (min 6 characters)</label>
+<input type="password" id="signup-password" required minlength="6" class="mt-1 block w-full p-3 border border-gray-300 rounded-lg shadow-sm focus:ring-pink-500 focus:border-pink-500">
+</div>
+<div id="signup-error" class="text-red-500 text-sm font-medium hidden"></div>
+<button type="submit" class="w-full py-3 bg-pink-600 text-white font-bold rounded-lg hover:bg-pink-700 transition shadow-lg">Sign Up</button>
+<p class="text-center text-sm mt-4 text-gray-600">
+Already have an account? <a href="#" id="switch-to-login" class="text-pink-600 font-medium hover:underline">Log In</a>
+</p>
+</form>
+</div>
+</div>
+
+<!-- CART MODAL -->
+<div id="cart-modal" class="modal-backdrop hidden">
+<div class="modal-content">
+<span class="modal-close" id="cart-modal-close-btn">&times;</span>
+<h2 class="text-2xl font-bold mb-4 text-center text-gray-800">Your Cart</h2>
+<div id="cart-items" class="space-y-2 text-gray-700 text-sm">
+<p>Your cart is empty.</p>
+</div>
+</div>
+</div>
+
+<!-- MESSAGES MODAL -->
+<div id="messages-modal" class="modal-backdrop hidden">
+<div class="modal-content">
+<span class="modal-close" id="messages-modal-close-btn">&times;</span>
+<h2 class="text-2xl font-bold mb-4 text-center text-gray-800">Messages</h2>
+<p class="text-gray-700 text-sm">No new messages.</p>
+</div>
+</div>
+
+<!-- FEEDBACK MODAL -->
+<div id="feedback-modal" class="modal-backdrop hidden">
+<div class="modal-content">
+<span class="modal-close" id="feedback-modal-close-btn">&times;</span>
+<h2 class="text-2xl font-bold mb-4 text-center text-gray-800">Feedback</h2>
+<form class="space-y-4">
+<textarea placeholder="Write your feedback..." class="w-full p-3 border border-gray-300 rounded-lg shadow-sm focus:ring-pink-500 focus:border-pink-500" rows="4"></textarea>
+<button type="submit" class="w-full py-2 bg-pink-500 text-white font-bold rounded-lg hover:bg-pink-600 transition">Send Feedback</button>
+</form>
+</div>
+</div>
+
+<!-- PROFILE MODAL -->
+<div id="profile-modal" class="modal-backdrop hidden">
+  <div class="modal-content">
+    <span class="modal-close" id="profile-modal-close-btn">&times;</span>
+    <h2 class="text-2xl font-bold mb-4 text-center text-gray-800">User Profile</h2>
+    <div class="mb-4">
+      <label class="block text-sm font-medium text-gray-700">Profile Picture</label>
+      <img id="profile-picture-preview" class="w-20 h-20 rounded-full object-cover mb-2" src="https://via.placeholder.com/80" alt="Preview">
+      <input type="file" id="profile-picture-input" class="mt-1 block w-full text-sm text-gray-700">
+    </div>
+    <div class="mb-4">
+      <label class="block text-sm font-medium text-gray-700">Name</label>
+      <input type="text" id="profile-name" class="mt-1 block w-full p-2 border border-gray-300 rounded-lg">
+    </div>
+    <div class="mb-4">
+      <label class="block text-sm font-medium text-gray-700">Contact</label>
+      <input type="text" id="profile-contact" class="mt-1 block w-full p-2 border border-gray-300 rounded-lg">
+    </div>
+    <div class="mb-4">
+      <label class="block text-sm font-medium text-gray-700">Address</label>
+      <input type="text" id="profile-address" class="mt-1 block w-full p-2 border border-gray-300 rounded-lg">
+    </div>
+    <div class="mb-4">
+      <label class="block text-sm font-medium text-gray-700">Category</label>
+      <select id="profile-category" class="mt-1 block w-full p-2 border border-gray-300 rounded-lg">
+        <option>Customer</option>
+        <option>Seller</option>
+        <option>Admin</option>
+      </select>
+    </div>
+    <button id="profile-save-btn" class="w-full py-2 bg-pink-500 text-white font-bold rounded-lg hover:bg-pink-600 transition mb-2">Save</button>
+    <button id="profile-close-btn" class="w-full py-2 bg-gray-300 text-gray-800 font-bold rounded-lg hover:bg-gray-400 transition">Close</button>
+  </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    const loginModal = document.getElementById('login-modal');
+    const signupModal = document.getElementById('signup-modal');
+    const mainContent = document.querySelector('#container > main');
+    const footerContent = document.querySelector('#container > footer');
+
+    // Show login modal on page load
+    loginModal.classList.remove('hidden');
+
+    const loginForm = document.getElementById('login-form');
+    const signupForm = document.getElementById('signup-form');
+
+    // Login
+    loginForm.addEventListener('submit', e => {
+        e.preventDefault();
+        const email = document.getElementById('login-email').value;
+        document.getElementById('user-email').textContent = email;
+        document.getElementById('user-display').classList.remove('hidden');
+        document.getElementById('anon-controls').classList.add('hidden');
+        loginModal.classList.add('hidden');
+        mainContent.style.display = '';
+        footerContent.style.display = '';
+    });
+
+    // Signup
+    signupForm.addEventListener('submit', e => {
+        e.preventDefault();
+        const email = document.getElementById('signup-email').value;
+        document.getElementById('user-email').textContent = email;
+        document.getElementById('user-display').classList.remove('hidden');
+        document.getElementById('anon-controls').classList.add('hidden');
+        signupModal.classList.add('hidden');
+        mainContent.style.display = '';
+        footerContent.style.display = '';
+    });
+
+    // Sign out
+    document.getElementById('sign-out-btn').addEventListener('click', () => {
+        document.getElementById('user-display').classList.add('hidden');
+        document.getElementById('anon-controls').classList.remove('hidden');
+        mainContent.style.display = 'none';
+        footerContent.style.display = 'none';
+        loginModal.classList.remove('hidden');
+    });
+
+    // Profile
+    const userDisplay = document.getElementById('user-display');
+    if(userDisplay){
+        const profileBtn = document.createElement('button');
+        profileBtn.id = 'profile-btn';
+        profileBtn.innerHTML = "👤";
+        profileBtn.className = 'w-10 h-10 rounded-full object-cover overflow-hidden bg-gray-100 flex items-center justify-center transition';
+        userDisplay.appendChild(profileBtn);
+
+        const savedPic = localStorage.getItem('profile-picture');
+        if(savedPic){
+            profileBtn.innerHTML = `<img src="${savedPic}" class="w-full h-full object-cover rounded-full">`;
+        }
+
+        profileBtn.addEventListener('click', () => {
+            const modal = document.getElementById('profile-modal');
+            modal.classList.remove('hidden');
+            document.getElementById('profile-name').value = localStorage.getItem('profile-name') || '';
+            document.getElementById('profile-contact').value = localStorage.getItem('profile-contact') || '';
+            document.getElementById('profile-address').value = localStorage.getItem('profile-address') || '';
+            const pic = localStorage.getItem('profile-picture');
+            if(pic) document.getElementById('profile-picture-preview').src = pic;
+        });
+    }
+
+    document.getElementById('profile-modal-close-btn').addEventListener('click', () => document.getElementById('profile-modal').classList.add('hidden'));
+    document.getElementById('profile-close-btn').addEventListener('click', () => document.getElementById('profile-modal').classList.add('hidden'));
+
+    document.getElementById('profile-picture-input').addEventListener('change', function(){
+        const file = this.files[0];
+        if(file){
+            const reader = new FileReader();
+            reader.onload = function(e){
+                document.getElementById('profile-picture-preview').src = e.target.result;
+            }
+            reader.readAsDataURL(file);
+        }
+    });
+
+    document.getElementById('profile-save-btn').addEventListener('click', () => {
+        localStorage.setItem('profile-name', document.getElementById('profile-name').value);
+        localStorage.setItem('profile-contact', document.getElementById('profile-contact').value);
+        localStorage.setItem('profile-address', document.getElementById('profile-address').value);
+
+        const picInput = document.getElementById('profile-picture-input');
+        if(picInput.files[0]){
+            const reader = new FileReader();
+            reader.onload = function(e){
+                localStorage.setItem('profile-picture', e.target.result);
+                document.getElementById('profile-btn').innerHTML = `<img src="${e.target.result}" class="w-full h-full object-cover rounded-full">`;
+            }
+            reader.readAsDataURL(picInput.files[0]);
+        }
+        alert('Profile saved successfully!');
+        document.getElementById('profile-modal').classList.add('hidden');
+    });
+
+    // Modals
+    const cartModal = document.getElementById('cart-modal');
+    const messagesModal = document.getElementById('messages-modal');
+    const feedbackModal = document.getElementById('feedback-modal');
+    document.getElementById('cart-btn').addEventListener('click', () => cartModal.classList.remove('hidden'));
+    document.getElementById('messages-btn').addEventListener('click', () => messagesModal.classList.remove('hidden'));
+    document.getElementById('feedback-btn').addEventListener('click', () => feedbackModal.classList.remove('hidden'));
+    document.getElementById('cart-modal-close-btn').addEventListener('click', () => cartModal.classList.add('hidden'));
+    document.getElementById('messages-modal-close-btn').addEventListener('click', () => messagesModal.classList.add('hidden'));
+    document.getElementById('feedback-modal-close-btn').addEventListener('click', () => feedbackModal.classList.add('hidden'));
+
+    // Cart
+    let cart = [];
+    const cartItemsDiv = document.getElementById('cart-items');
+    document.querySelectorAll('.add-to-cart').forEach(btn => {
+        btn.addEventListener('click', e => {
+            const productCard = e.target.closest('.product-card');
+            const name = productCard.dataset.name;
+            const price = productCard.dataset.price;
+            const img = productCard.dataset.img;
+            cart.push({name, price, img});
+            updateCart();
+            cartModal.classList.remove('hidden');
+        });
+    });
+    function updateCart() {
+        if(cart.length === 0){
+            cartItemsDiv.innerHTML = '<p>Your cart is empty.</p>';
+            return;
+        }
+        cartItemsDiv.innerHTML = '';
+        cart.forEach(item => {
+            const div = document.createElement('div');
+            div.className = 'flex items-center space-x-2';
+            div.innerHTML = `<img src="${item.img}" class="w-10 h-10 object-cover rounded" />
+                             <span>${item.name} - ₱${item.price}</span>`;
+            cartItemsDiv.appendChild(div);
+        });
+    }
+
+    // Nav links
+    const navLinks = document.querySelectorAll('#nav a');
+    const productCards = document.querySelectorAll('.product-card');
+    navLinks.forEach(link => {
+        link.addEventListener('click', e => {
+            e.preventDefault();
+            const text = link.textContent.toLowerCase();
+            let aboutSection = document.getElementById('about-us');
+            if(text==='home'){
+                if(aboutSection) aboutSection.style.display='none';
+                mainContent.style.display='grid';
+                productCards.forEach(card=>card.style.display='block');
+                window.scrollTo({top:0,behavior:'smooth'});
+            }
+            else if(text==='categories'){
+                productCards.forEach(card=>card.style.display='block');
+                const category = prompt("Enter category: Cosmetics, Shoes, etc.");
+                if(category){
+                    productCards.forEach(card=>{
+                        card.style.display = (card.dataset.category.toLowerCase() === category.toLowerCase())?'block':'none';
+                    });
+                }
+            }
+            else if(text==='deals'){
+                if(aboutSection) aboutSection.style.display='none';
+                mainContent.style.display='grid';
+                productCards.forEach(card=>{
+                    const price=parseFloat(card.dataset.price.replace(/,/g,''));
+                    card.style.display = price<=1000?'block':'none';
+                });
+            }
+            else if(text==='about us'){
+                if(!aboutSection){
+                    aboutSection=document.createElement('section');
+                    aboutSection.id='about-us';
+                    aboutSection.className='max-w-7xl mx-auto p-6 text-gray-700';
+                    aboutSection.innerHTML=`<h2 class="text-3xl font-extrabold mb-4 text-gray-800 border-b-2 border-pink-500 pb-2">About Us</h2><p>Welcome to Style Quartet! We provide high-quality cosmetics, fashion, and more for our valued customers.</p>`;
+                    document.body.insertBefore(aboutSection, footerContent);
+                }
+                mainContent.style.display='none';
+                aboutSection.style.display='block';
+                aboutSection.scrollIntoView({behavior:'smooth'});
+            }
+        });
+    });
+
+    // Modal switches
+    document.getElementById('login-modal-open-btn').addEventListener('click', () => loginModal.classList.remove('hidden'));
+    document.getElementById('signup-modal-open-btn').addEventListener('click', () => signupModal.classList.remove('hidden'));
+    document.getElementById('login-modal-close-btn').addEventListener('click', () => loginModal.classList.add('hidden'));
+    document.getElementById('signup-modal-close-btn').addEventListener('click', () => signupModal.classList.add('hidden'));
+    document.getElementById('switch-to-signup').addEventListener('click', e => { e.preventDefault(); loginModal.classList.add('hidden'); signupModal.classList.remove('hidden'); });
+    document.getElementById('switch-to-login').addEventListener('click', e => { e.preventDefault(); signupModal.classList.add('hidden'); loginModal.classList.remove('hidden'); });
+});
+</script>
+</body>
+</html>
